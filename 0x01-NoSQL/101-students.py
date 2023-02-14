@@ -20,4 +20,3 @@ def top_students(mongo_collection):
     cursor = mongo_collection.aggregate(pipeline)
     students = list(cursor)
     return students
-
