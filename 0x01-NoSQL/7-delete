@@ -1,0 +1,4 @@
+// Deletes all the documents in the mongo database
+db.school.deleteMany(
+    { name: "Holberton school" }
+)
