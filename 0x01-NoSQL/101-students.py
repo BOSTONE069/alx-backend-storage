@@ -5,18 +5,14 @@
 def top_students(mongo_collection):
     # sourcery skip: inline-immediately-returned-variable
     """ Returns all students sorted by average score """
-    pipeline = [
+    top_student = mongo_collection.aggregate([
         {
             "$project": {
-                "name": 1,
-                "scores": 1,
-                "averageScore": {"$avg": "$scores"}
+                "name": "$name",
+                "averageScore": {"$avg": "$topics.score"}
             }
         },
-        {
-            "$sort": {"averageScore": -1}
-        }
-    ]
-    cursor = mongo_collection.aggregate(pipeline)
-    students = list(cursor)
-    return students
+        {"$sort": {"averageScore": -1}}
+    ])
+
+    return top_student
